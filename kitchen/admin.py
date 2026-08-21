@@ -6,18 +6,33 @@ from kitchen.models import Cook, Dish, DishType, Ingredient
 # Register your models here.
 @admin.register(Cook)
 class CookAdmin(UserAdmin):
-    pass
+    list_display = UserAdmin.list_display + ("years_of_experience",)
+    fieldsets = UserAdmin.fieldsets + (
+        (("Additional info", {"fields": ("years_of_experience",)}),)
+    )
+    add_fieldsets = UserAdmin.add_fieldsets +  (
+        (
+            (
+                "Additional info",
+                {
+                    "fields": ("years_of_experience",),
+                },
+            ),
+        )
+    )
+
 
 @admin.register(DishType)
 class DishTypeAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ("name",)
+
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ("name",)
 
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ("name",)
 
 
