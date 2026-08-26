@@ -30,3 +30,4 @@ class CookListView(generic.ListView):
     model = Cook
     fields = "__all__"
     success_url = reverse_lazy('kitchen:cook_list')
+    paginate_by = 5
