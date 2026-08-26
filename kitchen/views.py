@@ -28,13 +28,15 @@ def index(request):
 
 class CookListView(generic.ListView):
     model = Cook
-    fields = "__all__"
-    success_url = reverse_lazy('kitchen:cook_list')
     paginate_by = 5
 
 
 class IngredientListView(generic.ListView):
     model = Ingredient
-    fields = "__all__"
-    success_url = reverse_lazy("kitchen:ingredient_list")
     paginate_by = 5
+
+
+class DishListView(generic.ListView):
+    model = Dish
+    paginate_by = 5
+    queryset = Dish.objects.prefetch_related("cooks", "ingredients")
