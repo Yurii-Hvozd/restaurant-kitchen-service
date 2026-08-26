@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Cook list
+  </h1>
+  {% if cook_list %}
+    <ul>
+      {% for cook in cook_list %}
+        <li>
+          {{ cook.first_name }} {{ cook.last_name }} ({{ cook.username }}) Years of expeirence: {{ cook.years_of_experience }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no cars in taxi</p>
+  {% endif %}
+{% endblock %}

@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views import View, generic
 
 from kitchen.models import Cook, Ingredient, Dish, DishType
 
@@ -22,3 +24,9 @@ def index(request):
     }
 
     return render(request, 'kitchen/index.html', context=context)
+
+
+class CookListView(generic.ListView):
+    model = Cook
+    fields = "__all__"
+    success_url = reverse_lazy('kitchen:cook_list')
