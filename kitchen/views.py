@@ -31,3 +31,10 @@ class CookListView(generic.ListView):
     fields = "__all__"
     success_url = reverse_lazy('kitchen:cook_list')
     paginate_by = 5
+
+
+class IngredientListView(generic.ListView):
+    model = Ingredient
+    fields = "__all__"
+    success_url = reverse_lazy("kitchen:ingredient_list")
+    paginate_by = 5
