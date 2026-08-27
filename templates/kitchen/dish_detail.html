@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Dish Details</h1>
+
+  <hr>
+
+  <h2>{{ dish.name }}</h2>
+
+  <p><strong>Price:</strong> ${{ dish.price }}</p>
+  <p><strong>Type of dish:</strong> {{ dish.dish_type.name }}</p>
+
+  <p><strong>Description:</strong></p>
+  <p>{{ dish.description }}</p>
+
+  <hr>
+
+  <h3>Ingredients:</h3>
+  {% if dish.ingredients.all %}
+    <ul>
+      {% for ingredient in dish.ingredients.all %}
+        <li>{{ ingredient.name }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No ingredients listed for this dish.</p>
+  {% endif %}
+
+  <hr>
+
+  <h3>Cooks who prepare this dish:</h3>
+  {% if dish.cooks.all %}
+    <ul>
+      {% for cook in dish.cooks.all %}
+        <li>
+          {% if cook.first_name or cook.last_name %}
+            {{ cook.first_name }} {{ cook.last_name }}
+          {% else %}
+            {{ cook.username }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No cooks assigned to this dish yet.</p>
+  {% endif %}
+
+  <hr>
+
+  <p>
+    <a href="{% url 'kitchen:dish_list' %}">Back to list</a>
+  </p>
+{% endblock %}
