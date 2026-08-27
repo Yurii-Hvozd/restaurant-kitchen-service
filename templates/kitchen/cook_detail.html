@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Cook Profile</h1>
+
+  <hr>
+
+  <h2>
+    {% if cook.first_name or cook.last_name %}
+      {{ cook.first_name }} {{ cook.last_name }}
+    {% else %}
+      {{ cook.username }}
+    {% endif %}
+  </h2>
+
+  <p><strong>Username:</strong> @{{ cook.username }}</p>
+  <p><strong>Years of experience:</strong> {{ cook.years_of_experience }}</p>
+  <p><strong>Email:</strong> {{ cook.email|default:"Not provided" }}</p>
+  <p><strong>Date joined:</strong> {{ cook.date_joined|date:"Y-m-d" }}</p>
+
+  <hr>
+  {% for dish in cooks.dishes.all  %}
+    {{ dish.name }}
+  {% endfor %}
+  <p>
+    <a href="{% url 'kitchen:cook_list' %}">Back to list</a>
+  </p>
+{% endblock %}
