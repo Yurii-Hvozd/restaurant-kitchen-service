@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views import View, generic
+from django.views import generic
 
 from kitchen.models import Cook, Ingredient, Dish, DishType
 
@@ -34,6 +34,36 @@ class CookListView(LoginRequiredMixin, generic.ListView):
 
 class CookDetailView(LoginRequiredMixin, generic.DetailView):
     model = Cook
+
+class CookCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Cook
+    fields = '__all__'
+    success_url = reverse_lazy("kitchen:cook_list")
+    template_name = "kitchen/cook_form.html"
+
+
+class CookUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Cook
+    fields = '__all__'
+    success_url = reverse_lazy("kitchen:cook_list")
+    template_name = "kitchen/cook_form.html"
+
+
+class CookDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Cook
+    success_url = reverse_lazy("kitchen:cook_list")
+    template_name = "kitchen/cook_confirm_delete.html"
+
+
+
+
+
+
+
+
+
+
+
 
 
 class IngredientListView(LoginRequiredMixin, generic.ListView):
