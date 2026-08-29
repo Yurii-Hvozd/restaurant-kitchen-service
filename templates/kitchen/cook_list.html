@@ -2,12 +2,13 @@
 
 {% block content %}
   <h1>
-    Cook list
+    Cook list <a href="{% url 'kitchen:cook_create' %}">+</a>
   </h1>
   {% if cook_list %}
     <ul>
       {% for cook in cook_list %}
         <li>
+          <a href="{% url "kitchen:cook_detail" pk=cook.id %}">{{ cook.id }}</a>
           {{ cook.first_name }} {{ cook.last_name }} ({{ cook.username }}) Years of expeirence: {{ cook.years_of_experience }}
         </li>
       {% endfor %}
