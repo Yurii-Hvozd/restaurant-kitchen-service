@@ -60,6 +60,26 @@ class IngredientListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
 
+class IngredientCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Ingredient
+    fields = "__all__"
+    success_url = reverse_lazy("kitchen:ingredient_list")
+    template_name = "kitchen/ingredient_form.html"
+
+
+class IngredientUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Ingredient
+    fields = "__all__"
+    success_url = reverse_lazy("kitchen:ingredient_list")
+    template_name = "kitchen/ingredient_form.html"
+
+
+class IngredientDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Ingredient
+    success_url = reverse_lazy("kitchen:ingredient_list")
+
+
+
 
 
 
