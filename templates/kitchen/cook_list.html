@@ -9,11 +9,10 @@
       {% for cook in cook_list %}
         <li>
           <a href="{% url "kitchen:cook_detail" pk=cook.id %}">{{ cook.first_name }} {{ cook.last_name }} ({{ cook.username }})</a>
-
         </li>
       {% endfor %}
     </ul>
   {% else %}
-    <p>There are no cars in taxi</p>
+    <p>No cooks found on the kitchen.</p>
   {% endif %}
 {% endblock %}

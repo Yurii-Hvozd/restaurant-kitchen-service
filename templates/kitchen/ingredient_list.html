@@ -3,15 +3,15 @@
 {% block content %}
   <h1>
     Ingredient list
-  <a href="{% url "kitchen:ingredient_create" %}">+</a>
+    <a href="{% url "kitchen:ingredient_create" %}">+</a>
   </h1>
   {% if ingredient_list %}
     <ul>
       {% for ingredient in ingredient_list %}
         <li>
           {{ ingredient.name }}
-        <a href="{% url "kitchen:ingredient_update" pk=ingredient.id %}">Update</a>
-        <a href="{% url "kitchen:ingredient_delete" pk=ingredient.id %}">Delete</a>
+          <a href="{% url "kitchen:ingredient_update" pk=ingredient.id %}">Update</a>
+          <a href="{% url "kitchen:ingredient_delete" pk=ingredient.id %}">Delete</a>
         </li>
 
       {% endfor %}

@@ -33,8 +33,10 @@ class Dish(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     dish_type = models.ForeignKey(DishType, on_delete=models.CASCADE)
-    cooks = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='dishes')
-    ingredients = models.ManyToManyField(Ingredient, blank=True, related_name='dishes')
+    cooks = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, blank=True, related_name="dishes"
+    )
+    ingredients = models.ManyToManyField(Ingredient, blank=True, related_name="dishes")
 
     class Meta:
         verbose_name = "Dish"
@@ -42,4 +44,3 @@ class Dish(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.price}$)"
-

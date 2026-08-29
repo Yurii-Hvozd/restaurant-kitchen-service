@@ -6,7 +6,7 @@
     {% csrf_token %}
     {{ form.as_p }}
 
-    <input type="submit" value="Submit" class="btn btn-primary">
+    <input type="submit" value="Submit">
   </form>
   <p>
     <a href="{% url 'kitchen:ingredient_list' %}">Back ingredient list</a>

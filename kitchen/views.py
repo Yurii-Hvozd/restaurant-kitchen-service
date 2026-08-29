@@ -6,6 +6,7 @@ from django.views import generic
 
 from kitchen.models import Cook, Ingredient, Dish, DishType
 
+
 @login_required
 def index(request):
     num_cooks = Cook.objects.all().count()
@@ -13,18 +14,18 @@ def index(request):
     num_dishes = Dish.objects.all().count()
     num_dish_types = DishType.objects.all().count()
 
-    num_visits = request.session.get('num_visits', 0)
-    request.session['num_visits'] = num_visits + 1
+    num_visits = request.session.get("num_visits", 0)
+    request.session["num_visits"] = num_visits + 1
 
     context = {
-        'num_cooks': num_cooks,
-        'num_ingredients': num_ingredients,
-        'num_dishes': num_dishes,
-        'num_dish_types': num_dish_types,
-        'num_visits': num_visits + 1,
+        "num_cooks": num_cooks,
+        "num_ingredients": num_ingredients,
+        "num_dishes": num_dishes,
+        "num_dish_types": num_dish_types,
+        "num_visits": num_visits + 1,
     }
 
-    return render(request, 'kitchen/index.html', context=context)
+    return render(request, "kitchen/index.html", context=context)
 
 
 class CookListView(LoginRequiredMixin, generic.ListView):
@@ -34,6 +35,7 @@ class CookListView(LoginRequiredMixin, generic.ListView):
 
 class CookDetailView(LoginRequiredMixin, generic.DetailView):
     model = Cook
+
 
 class CookCreateView(LoginRequiredMixin, generic.CreateView):
     model = Cook
@@ -79,11 +81,6 @@ class IngredientDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("kitchen:ingredient_list")
 
 
-
-
-
-
-
 class DishListView(LoginRequiredMixin, generic.ListView):
     model = Dish
     paginate_by = 5
@@ -92,7 +89,9 @@ class DishListView(LoginRequiredMixin, generic.ListView):
 
 class DishDetailView(LoginRequiredMixin, generic.DetailView):
     model = Dish
-    queryset = Dish.objects.select_related("dish_type").prefetch_related("ingredients", "cooks")
+    queryset = Dish.objects.select_related("dish_type").prefetch_related(
+        "ingredients", "cooks"
+    )
 
 
 class DishCreateView(LoginRequiredMixin, generic.CreateView):
@@ -114,17 +113,10 @@ class DishDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("kitchen:dish_list")
 
 
-
-
-
-
-
-
-
 class DishTypeListView(LoginRequiredMixin, generic.ListView):
     model = DishType
     paginate_by = 5
-    context_object_name = 'dish_types'
+    context_object_name = "dish_types"
     template_name = "kitchen/dish_types_list.html"
 
 
@@ -146,6 +138,3 @@ class DishTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = DishType
     success_url = reverse_lazy("kitchen:dish_types_list")
     template_name = "kitchen/dish_types_confirm_delete.html"
-
-
-

@@ -10,7 +10,7 @@ class CookAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         (("Additional info", {"fields": ("years_of_experience",)}),)
     )
-    add_fieldsets = UserAdmin.add_fieldsets +  (
+    add_fieldsets = UserAdmin.add_fieldsets + (
         (
             (
                 "Additional info",
@@ -31,9 +31,8 @@ class DishTypeAdmin(admin.ModelAdmin):
 class IngredientAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
+
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
     search_fields = ("name",)
     list_filter = ("dish_type",)
-
-
