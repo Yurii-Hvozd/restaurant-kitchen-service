@@ -37,14 +37,14 @@ class CookDetailView(LoginRequiredMixin, generic.DetailView):
 
 class CookCreateView(LoginRequiredMixin, generic.CreateView):
     model = Cook
-    fields = '__all__'
+    fields = ("first_name", "last_name", "email", "password", "years_of_experience")
     success_url = reverse_lazy("kitchen:cook_list")
     template_name = "kitchen/cook_form.html"
 
 
 class CookUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Cook
-    fields = '__all__'
+    fields = ("first_name", "last_name", "email", "years_of_experience")
     success_url = reverse_lazy("kitchen:cook_list")
     template_name = "kitchen/cook_form.html"
 
