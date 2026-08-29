@@ -8,7 +8,9 @@
 
     <input type="submit" value="Submit">
   </form>
-  <p>
-    <a href="{% url 'kitchen:dish_detail' pk=dish.id %}">Back to {{ dish.name }}</a>
-  </p>
+  {% if object.id %}
+    <a href="{% url 'kitchen:dish_detail' pk=object.id %}">Back to {{ object.name }}</a>
+  {% else %}
+    <a href="{% url 'kitchen:dish_list' %}">Back to list</a>
+  {% endif %}
 {% endblock %}
