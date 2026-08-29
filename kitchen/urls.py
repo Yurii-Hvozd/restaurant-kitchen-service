@@ -60,6 +60,7 @@ urlpatterns = [
         DishTypeDeleteView.as_view(),
         name="dish_types_delete",
     ),
+
 ]
 
 
