@@ -55,30 +55,50 @@ class CookDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = "kitchen/cook_confirm_delete.html"
 
 
-
-
-
-
-
-
-
-
-
-
-
 class IngredientListView(LoginRequiredMixin, generic.ListView):
     model = Ingredient
     paginate_by = 5
 
 
+
+
+
+
 class DishListView(LoginRequiredMixin, generic.ListView):
     model = Dish
     paginate_by = 5
+    queryset = Dish.objects.select_related("dish_type")
 
 
 class DishDetailView(LoginRequiredMixin, generic.DetailView):
     model = Dish
     queryset = Dish.objects.select_related("dish_type").prefetch_related("ingredients", "cooks")
+
+
+class DishCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Dish
+    fields = "__all__"
+    success_url = reverse_lazy("kitchen:dish_list")
+    template_name = "kitchen/dish_form.html"
+
+
+class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Dish
+    fields = "__all__"
+    success_url = reverse_lazy("kitchen:dish_list")
+    template_name = "kitchen/dish_form.html"
+
+
+class DishDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Dish
+    success_url = reverse_lazy("kitchen:dish_list")
+
+
+
+
+
+
+
 
 
 class DishTypeListView(LoginRequiredMixin, generic.ListView):

@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Dish Details</h1>
+  <h1>Dish Details
+    <a href="{% url 'kitchen:dish_delete' pk=dish.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+
+    <a href="{% url 'kitchen:dish_update' pk=dish.id %}" class="btn btn-secondary link-to-page">
+      Update
+    </a>
+  </h1>
+
 
   <hr>
 

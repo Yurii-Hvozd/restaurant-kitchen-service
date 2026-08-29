@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ object|yesno:"Update,Create" }} dish</h1>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </form>
+  <p>
+    <a href="{% url 'kitchen:dish_detail' pk=dish.id %}">Back to {{ dish.name }}</a>
+  </p>
+{% endblock %}

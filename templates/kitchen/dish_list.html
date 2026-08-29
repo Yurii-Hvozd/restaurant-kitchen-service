@@ -2,18 +2,17 @@
 
 {% block content %}
   <h1>
-    Dish list
+    Dish list <a href=" {% url 'kitchen:dish_create' %}">+</a>
   </h1>
   {% if dish_list %}
     <ul>
       {% for dish in dish_list %}
         <li>
-          Name Dish:{{ dish.name }}
-          Description:{{ dish.description }}
-          Price:${{ dish.price }}
-          Type:{{ dish.dish_type.name }}
-          Cook Name: {{ dish.cooks.all|join:", " }}
-          Dish Ingredient: {{ dish.ingredients.all|join:", " }}
+          <a href="{% url "kitchen:dish_detail" pk=dish.id %}">
+            {{ dish.name }}
+            -${{ dish.price }}
+            {{ dish.dish_type.name }}
+          </a>
         </li>
       {% endfor %}
     </ul>

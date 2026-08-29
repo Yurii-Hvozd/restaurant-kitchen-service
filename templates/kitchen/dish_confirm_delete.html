@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Delete Dish</h1>
+
+  <p>Are you sure you want to delete the dish: {{ dish.name }}?</p>
+  <p><i>This action cannot be undone. The dish will be permanently removed from the menu.</i></p>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Yes, delete"  />
+  </form>
+  <p>
+    <a href="{% url 'kitchen:dish_detail' pk=dish.id %}">Back to {{ dish.name }}</a>
+  </p>
+{% endblock %}
