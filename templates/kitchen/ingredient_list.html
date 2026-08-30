@@ -5,6 +5,10 @@
     Ingredient list
     <a href="{% url "kitchen:ingredient_create" %}">+</a>
   </h1>
+  <form method="get" action="">
+    {{ search_form }}
+    <input type="submit" value="🔍">
+  </form>
   {% if ingredient_list %}
     <ul>
       {% for ingredient in ingredient_list %}

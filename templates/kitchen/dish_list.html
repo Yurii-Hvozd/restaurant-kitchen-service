@@ -4,6 +4,10 @@
   <h1>
     Dish list <a href=" {% url 'kitchen:dish_create' %}">+</a>
   </h1>
+  <form method="get" action="">
+    {{ search_form }}
+    <input type="submit" value="🔍">
+  </form>
   {% if dish_list %}
     <ul>
       {% for dish in dish_list %}
@@ -17,6 +21,6 @@
       {% endfor %}
     </ul>
   {% else %}
-    <p>There are no cars in taxi</p>
+    <p>There are no dishes in the kitchen.</p>
   {% endif %}
 {% endblock %}
