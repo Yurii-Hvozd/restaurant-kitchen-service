@@ -3,15 +3,23 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
-from django.db.models import Q
+from django.db.models import Q, QuerySet
+from typing import Any, Dict
 
-from kitchen.forms import CookCreationForm, DishForm, CookSearchForm, DishSearchForm, IngredientSearchForm, \
-    DishTypeSearchForm
+from kitchen.forms import (
+    CookCreationForm,
+    DishForm,
+    CookSearchForm,
+    DishSearchForm,
+    IngredientSearchForm,
+    DishTypeSearchForm,
+)
 from kitchen.models import Cook, Ingredient, Dish, DishType
+from django.http import HttpRequest, HttpResponse
 
 
 @login_required
-def index(request):
+def index(request: HttpRequest) -> HttpResponse:
     num_cooks = Cook.objects.all().count()
     num_ingredients = Ingredient.objects.all().count()
     num_dishes = Dish.objects.all().count()
@@ -35,8 +43,7 @@ class CookListView(LoginRequiredMixin, generic.ListView):
     model = Cook
     paginate_by = 5
 
-
-    def get_queryset(self):
+    def get_queryset(self: CookListView) -> QuerySet:
         queryset = super().get_queryset()
 
         query = self.request.GET.get("search")
@@ -45,11 +52,12 @@ class CookListView(LoginRequiredMixin, generic.ListView):
             words = query.split()
             for word in words:
                 queryset = queryset.filter(
-                    Q(first_name__icontains=word) | Q(last_name__icontains=word)
+                    Q(first_name__icontains=word) |
+                    Q(last_name__icontains=word)
                 )
         return queryset
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self: CookListView, **kwargs: Any) -> Dict:
         context = super().get_context_data(**kwargs)
         context["search_form"] = CookSearchForm(self.request.GET)
         return context
@@ -83,19 +91,19 @@ class IngredientListView(LoginRequiredMixin, generic.ListView):
     model = Ingredient
     paginate_by = 5
 
-
-    def get_context_data(self, **kwargs):
+    def get_context_data(self: IngredientListView, **kwargs: Any) -> Dict:
         context = super(IngredientListView, self).get_context_data(**kwargs)
 
         context["search_form"] = IngredientSearchForm(self.request.GET)
         return context
 
-    def get_queryset(self):
+    def get_queryset(self: IngredientListView) -> QuerySet:
         queryset = super().get_queryset()
         name = self.request.GET.get("name")
         if name:
             return queryset.filter(name__icontains=name)
         return queryset
+
 
 class IngredientCreateView(LoginRequiredMixin, generic.CreateView):
     model = Ingredient
@@ -120,14 +128,13 @@ class DishListView(LoginRequiredMixin, generic.ListView):
     model = Dish
     paginate_by = 5
 
-
-    def get_context_data(self, **kwargs):
+    def get_context_data(self: DishListView, **kwargs: Any) -> Dict:
         context = super(DishListView, self).get_context_data(**kwargs)
 
         context["search_form"] = DishSearchForm(self.request.GET)
         return context
 
-    def get_queryset(self):
+    def get_queryset(self: DishListView) -> QuerySet:
         queryset = Dish.objects.select_related("dish_type")
         name = self.request.GET.get("name")
         if name:
@@ -167,14 +174,13 @@ class DishTypeListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "dish_types"
     template_name = "kitchen/dish_types_list.html"
 
-
-    def get_context_data(self, **kwargs):
+    def get_context_data(self: DishTypeListView, **kwargs: Any) -> Dict:
         context = super(DishTypeListView, self).get_context_data(**kwargs)
 
         context["search_form"] = DishTypeSearchForm(self.request.GET)
         return context
 
-    def get_queryset(self):
+    def get_queryset(self: DishTypeListView) -> QuerySet:
         queryset = super().get_queryset()
         name = self.request.GET.get("name")
         if name:
