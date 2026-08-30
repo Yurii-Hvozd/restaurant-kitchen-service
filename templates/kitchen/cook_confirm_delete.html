@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Delete Cook</h1>
-
-  <p>Are you sure you want to delete the cook: {{ cook.username }}?</p>
-  <p><i>All dishes assigned to this cook will not be deleted, but this profile will be permanently removed!</i></p>
-
-  <form action="" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Yes, delete"/>
-  </form>
+  <div class="confirm-card">
+    <span class="eyebrow">Confirmation</span>
+    <h1>Delete cook</h1>
+    <p class="confirm-question">Are you sure you want to delete the cook: {{ cook.username }}?</p>
+    <p class="muted">All dishes assigned to this cook will not be deleted, but this profile will be permanently removed!</p>
+    <form action="" method="post" class="form-actions">
+      {% csrf_token %}
+      <a href="{% url 'kitchen:cook_list' %}" class="button button--light">Back to cooks</a>
+      <button type="submit" class="button button--danger">Yes, delete</button>
+    </form>
+  </div>
 {% endblock %}

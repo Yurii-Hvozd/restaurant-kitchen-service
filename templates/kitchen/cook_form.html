@@ -1,15 +1,17 @@
 {% extends "base.html" %}
-
 {% block content %}
-  <h1>{{ object|yesno:"Update,Create" }} cook</h1>
-  <form action="" method="post" novalidate>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
-  </form>
-  {% if object.id %}
-    <a href="{% url 'kitchen:cook_detail' pk=object.id %}">Back to {{ object.first_name }} {{ object.last_name }}</a>
-  {% else %}
-    <a href="{% url 'kitchen:cook_list' %}">Back to list</a>
-  {% endif %}
+  <header class="page-header">
+    <div><span class="eyebrow">Team</span>
+      <h1>{{ object|yesno:"Update,Create" }} cook</h1></div>
+  </header>
+  <section class="form-card">
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="form-actions">
+        <a href="{% url 'kitchen:cook_list' %}" class="button button--light">Cancel</a>
+        <button type="submit" class="button button--dark">Save cook</button>
+      </div>
+    </form>
+  </section>
 {% endblock %}

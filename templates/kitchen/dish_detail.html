@@ -1,61 +1,53 @@
 {% extends "base.html" %}
-
 {% block content %}
-  <h1>Dish Details
-    <a href="{% url 'kitchen:dish_delete' pk=dish.id %}">
-      Delete
-    </a>
-    <a href="{% url 'kitchen:dish_update' pk=dish.id %}">
-      Update
-    </a>
-  </h1>
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">Menu item</span>
+      <h1>Dish details</h1>
+    </div>
+    <div class="header-actions">
+      <a href="{% url 'kitchen:dish_update' pk=dish.id %}" class="button button--light">Edit</a>
+      <a href="{% url 'kitchen:dish_delete' pk=dish.id %}" class="button button--danger">Delete</a>
+    </div>
+  </header>
 
+  <section class="dish-hero">
+    <div>
+      <span class="pill">{{ dish.dish_type.name|default:"Uncategorized" }}</span>
+      <h2>{{ dish.name }}</h2>
+      <p>{{ dish.description }}</p>
+    </div>
+    <div class="dish-price">${{ dish.price }}</div>
+  </section>
 
-  <hr>
+  <div class="detail-grid detail-grid--bottom">
+    <section class="info-card">
+      <div class="card-heading"><span>Ingredients</span><span class="muted">Kitchen</span></div>
+      {% if dish.ingredients.all %}
+        <ul class="clean-list">
+          {% for ingredient in dish.ingredients.all %}
+            <li><span>•</span>{{ ingredient.name }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="muted">No ingredients listed for this dish.</p>
+      {% endif %}
+    </section>
 
-  <h2>{{ dish.name }}</h2>
+    <section class="info-card">
+      <div class="card-heading"><span>Cooks</span><span class="muted">Assigned</span></div>
+      {% if dish.cooks.all %}
+        <ul class="clean-list">
+          {% for cook in dish.cooks.all %}
+            <li><span>•</span>{% if cook.first_name or cook.last_name %}{{ cook.first_name }}
+              {{ cook.last_name }}{% else %}{{ cook.username }}{% endif %}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="muted">No cooks assigned to this dish yet.</p>
+      {% endif %}
+    </section>
+  </div>
 
-  <p><strong>Price:</strong> ${{ dish.price }}</p>
-  <p><strong>Type of dish:</strong> {{ dish.dish_type.name }}</p>
-
-  <p><strong>Description:</strong></p>
-  <p>{{ dish.description }}</p>
-
-  <hr>
-
-  <h3>Ingredients:</h3>
-  {% if dish.ingredients.all %}
-    <ul>
-      {% for ingredient in dish.ingredients.all %}
-        <li>{{ ingredient.name }}</li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No ingredients listed for this dish.</p>
-  {% endif %}
-
-  <hr>
-
-  <h3>Cooks who prepare this dish:</h3>
-  {% if dish.cooks.all %}
-    <ul>
-      {% for cook in dish.cooks.all %}
-        <li>
-          {% if cook.first_name or cook.last_name %}
-            {{ cook.first_name }} {{ cook.last_name }}
-          {% else %}
-            {{ cook.username }}
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No cooks assigned to this dish yet.</p>
-  {% endif %}
-
-  <hr>
-
-  <p>
-    <a href="{% url 'kitchen:dish_list' %}">Back to list</a>
-  </p>
+  <div class="back-link"><a href="{% url 'kitchen:dish_list' %}">← Back to dishes</a></div>
 {% endblock %}

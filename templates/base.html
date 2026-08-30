@@ -1,37 +1,43 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f1eb">
 
   {% block title %}
-    <title>Restaurant Kitchen Service</title>
+    <title>Kitchen · Restaurant</title>
   {% endblock %}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
+      rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
 <body>
-<div>
-  <div>
-    <div>
+<div class="app-shell">
+  {% block sidebar %}
+    {% include "includes/sidebar.html" %}
+  {% endblock %}
 
-      {% block sidebar %}
-        {% include "includes/sidebar.html" %}
-      {% endblock %}
-
+  <main class="main">
+    <div class="mobile-topbar">
+      <div class="brand brand--mobile">
+        <span class="brand-mark">K</span>
+        <span>Kitchen</span>
+      </div>
     </div>
-    <div>
 
-      {% block content %}
-      {% endblock %}
+    {% block content %}{% endblock %}
 
-      {% block pagination %}
-        {% include "includes/pagination.html" %}
-      {% endblock %}
-
-    </div>
-  </div>
+    {% block pagination %}
+      {% include "includes/pagination.html" %}
+    {% endblock %}
+  </main>
 </div>
 </body>
-
 </html>
