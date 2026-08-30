@@ -1,5 +1,3 @@
-from multiprocessing import context
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
@@ -53,8 +51,6 @@ class CookListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Передаємо форму у контекст, заповнюючи її поточними даними з GET-запиту,
-        # щоб введене користувачем слово не зникало з поля після перезавантаження сторінки
         context["search_form"] = CookSearchForm(self.request.GET)
         return context
 
@@ -123,7 +119,7 @@ class IngredientDeleteView(LoginRequiredMixin, generic.DeleteView):
 class DishListView(LoginRequiredMixin, generic.ListView):
     model = Dish
     paginate_by = 5
-    queryset = Dish.objects.select_related("dish_type")
+
 
     def get_context_data(self, **kwargs):
         context = super(DishListView, self).get_context_data(**kwargs)
@@ -132,10 +128,11 @@ class DishListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
+        queryset = Dish.objects.select_related("dish_type")
         name = self.request.GET.get("name")
         if name:
-            return self.queryset.filter(name__icontains=name)
-        return self.queryset
+            return queryset.filter(name__icontains=name)
+        return queryset
 
 
 class DishDetailView(LoginRequiredMixin, generic.DetailView):
