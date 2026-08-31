@@ -747,7 +747,9 @@ h1 em {
     margin-bottom: 7px;
 }
 
-.form-card input:not([type="submit"]):not([type="hidden"]), .form-card select, .form-card textarea,
+.form-card input:not([type="submit"]):not([type="hidden"]):not([type="checkbox"]),
+.form-card select,
+.form-card textarea,
 .auth-card input:not([type="submit"]):not([type="hidden"]) {
     width: 100%;
     border: 1px solid var(--line-dark);
@@ -757,6 +759,27 @@ h1 em {
     outline: none;
     color: var(--ink);
     transition: .15s ease;
+}
+
+/* CHECKBOXES */
+.form-card input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    accent-color: #1677ff;
+}
+
+.form-card p:has(input[type="checkbox"]) label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-weight: 400;
+    color: var(--ink);
+}
+
+.form-card p:has(input[type="checkbox"]) {
+    margin-bottom: 10px;
 }
 
 .form-card textarea {
