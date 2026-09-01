@@ -3,3 +3,4 @@
 __pycache__
 db.sqlite3
 kitchen_database_33.json
+.env

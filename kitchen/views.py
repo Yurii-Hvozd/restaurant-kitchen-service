@@ -43,7 +43,7 @@ class CookListView(LoginRequiredMixin, generic.ListView):
     model = Cook
     paginate_by = 5
 
-    def get_queryset(self: CookListView) -> QuerySet:
+    def get_queryset(self) -> QuerySet:
         queryset = super().get_queryset()
 
         query = self.request.GET.get("search")
@@ -57,7 +57,7 @@ class CookListView(LoginRequiredMixin, generic.ListView):
                 )
         return queryset
 
-    def get_context_data(self: CookListView, **kwargs: Any) -> Dict:
+    def get_context_data(self, **kwargs: Any) -> Dict:
         context = super().get_context_data(**kwargs)
         context["search_form"] = CookSearchForm(self.request.GET)
         return context
@@ -91,13 +91,13 @@ class IngredientListView(LoginRequiredMixin, generic.ListView):
     model = Ingredient
     paginate_by = 5
 
-    def get_context_data(self: IngredientListView, **kwargs: Any) -> Dict:
+    def get_context_data(self, **kwargs: Any) -> Dict:
         context = super(IngredientListView, self).get_context_data(**kwargs)
 
         context["search_form"] = IngredientSearchForm(self.request.GET)
         return context
 
-    def get_queryset(self: IngredientListView) -> QuerySet:
+    def get_queryset(self) -> QuerySet:
         queryset = super().get_queryset()
         name = self.request.GET.get("name")
         if name:
@@ -128,13 +128,13 @@ class DishListView(LoginRequiredMixin, generic.ListView):
     model = Dish
     paginate_by = 5
 
-    def get_context_data(self: DishListView, **kwargs: Any) -> Dict:
+    def get_context_data(self, **kwargs: Any) -> Dict:
         context = super(DishListView, self).get_context_data(**kwargs)
 
         context["search_form"] = DishSearchForm(self.request.GET)
         return context
 
-    def get_queryset(self: DishListView) -> QuerySet:
+    def get_queryset(self) -> QuerySet:
         queryset = Dish.objects.select_related("dish_type")
         name = self.request.GET.get("name")
         if name:
@@ -174,13 +174,13 @@ class DishTypeListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "dish_types"
     template_name = "kitchen/dish_types_list.html"
 
-    def get_context_data(self: DishTypeListView, **kwargs: Any) -> Dict:
+    def get_context_data(self, **kwargs: Any) -> Dict:
         context = super(DishTypeListView, self).get_context_data(**kwargs)
 
         context["search_form"] = DishTypeSearchForm(self.request.GET)
         return context
 
-    def get_queryset(self: DishTypeListView) -> QuerySet:
+    def get_queryset(self) -> QuerySet:
         queryset = super().get_queryset()
         name = self.request.GET.get("name")
         if name:

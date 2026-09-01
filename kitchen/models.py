@@ -6,7 +6,7 @@ from django.conf import settings
 class Cook(AbstractUser):
     years_of_experience = models.PositiveIntegerField(default=0)
 
-    def __str__(self: Cook) -> str:
+    def __str__(self) -> str:
         return f"{self.first_name} {self.last_name} ({self.username})"
 
     class Meta:
@@ -17,14 +17,14 @@ class Cook(AbstractUser):
 class DishType(models.Model):
     name = models.CharField(max_length=200)
 
-    def __str__(self: DishType) -> str:
+    def __str__(self) -> str:
         return f"{self.name}"
 
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=200)
 
-    def __str__(self: Ingredient) -> str:
+    def __str__(self) -> str:
         return f"{self.name}"
 
 
@@ -45,5 +45,5 @@ class Dish(models.Model):
         verbose_name = "Dish"
         verbose_name_plural = "Dishes"
 
-    def __str__(self: Dish) -> str:
+    def __str__(self) -> str:
         return f"{self.name} ({self.price}$)"
