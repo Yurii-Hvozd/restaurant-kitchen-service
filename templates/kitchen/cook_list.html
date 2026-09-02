@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">Team</span>
+      <h1>Cooks</h1>
+      <p class="page-subtitle">Everyone working behind the pass.</p>
+    </div>
+    <a href="{% url 'kitchen:cook_create' %}" class="button button--dark">+ Add cook</a>
+  </header>
+
+  <form method="get" action="" class="search-bar">
+    {{ search_form }}
+    <button type="submit" aria-label="Search">⌕</button>
+  </form>
+
+  {% if cook_list %}
+    <div class="list-card">
+      {% for cook in cook_list %}
+        <a href="{% url 'kitchen:cook_detail' pk=cook.id %}" class="list-row">
+          <span class="avatar avatar--large">{{ cook.first_name|default:cook.username|slice:":1"|upper }}</span>
+          <span class="row-main">
+            <strong>
+              {% if cook.first_name or cook.last_name %}{{ cook.first_name }} {{ cook.last_name }}{% else %}
+                {{ cook.username }}{% endif %}
+            </strong>
+            <small>@{{ cook.username }}</small>
+          </span>
+          <span class="row-arrow">→</span>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state"><span>✦</span>
+      <h3>No cooks yet</h3>
+      <p>Add your first kitchen team member.</p></div>
+  {% endif %}
+{% endblock %}

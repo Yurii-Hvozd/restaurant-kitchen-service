@@ -1,0 +1,61 @@
+<aside class="sidebar">
+  <div class="sidebar-inner">
+    <a href="{% url 'kitchen:index' %}" class="brand">
+      <span class="brand-mark">K</span>
+      <span>
+        <strong>Kitchen</strong>
+        <small>Restaurant service</small>
+      </span>
+    </a>
+
+    <div class="sidebar-section">
+      <span class="sidebar-label">Workspace</span>
+
+      <nav class="nav">
+        <a href="{% url 'kitchen:index' %}" class="nav-link">
+          <span class="nav-icon">⌂</span>
+          <span>Overview</span>
+        </a>
+        <a href="{% url 'kitchen:dish_list' %}" class="nav-link">
+          <span class="nav-icon">◒</span>
+          <span>Dishes</span>
+        </a>
+        <a href="{% url 'kitchen:ingredient_list' %}" class="nav-link">
+          <span class="nav-icon">◌</span>
+          <span>Ingredients</span>
+        </a>
+        <a href="{% url 'kitchen:dish_types_list' %}" class="nav-link">
+          <span class="nav-icon">▦</span>
+          <span>Dish types</span>
+        </a>
+        <a href="{% url 'kitchen:cook_list' %}" class="nav-link">
+          <span class="nav-icon">♙</span>
+          <span>Cooks</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="user-card">
+      {% if user.is_authenticated %}
+        <div class="avatar">{{ user.get_username|slice:":1"|upper }}</div>
+        <div class="user-meta">
+          <span class="user-name">{{ user.get_username }}</span>
+          <span class="user-role">Kitchen staff</span>
+        </div>
+        <form action="{% url 'logout' %}" method="post" class="logout-form">
+          {% csrf_token %}
+          <button type="submit" class="icon-button" aria-label="Logout" title="Logout">↗</button>
+        </form>
+      {% else %}
+        <div class="avatar">?</div>
+        <div class="user-meta">
+          <span class="user-name">Guest</span>
+          <span class="user-role">Not signed in</span>
+        </div>
+        <a href="{% url 'login' %}?next={{ request.path }}" class="icon-button" aria-label="Login" title="Login">→</a>
+      {% endif %}
+    </div>
+  </div>
+</aside>

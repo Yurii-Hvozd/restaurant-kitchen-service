@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">Menu</span>
+      <h1>Dishes</h1>
+      <p class="page-subtitle">Your current restaurant menu.</p>
+    </div>
+    <a href="{% url 'kitchen:dish_create' %}" class="button button--dark">+ Add dish</a>
+  </header>
+
+  <form method="get" action="" class="search-bar">
+    {{ search_form }}
+    <button type="submit" aria-label="Search">⌕</button>
+  </form>
+
+  {% if dish_list %}
+    <div class="list-card">
+      {% for dish in dish_list %}
+        <a href="{% url 'kitchen:dish_detail' pk=dish.id %}" class="list-row">
+          <span class="row-index">{{ forloop.counter|stringformat:"02d" }}</span>
+          <span class="row-main">
+            <strong>{{ dish.name }}</strong>
+            <small>{{ dish.dish_type.name|default:"Uncategorized" }}</small>
+          </span>
+          <span class="row-price">${{ dish.price }}</span>
+          <span class="row-arrow">→</span>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state"><span>✦</span>
+      <h3>No dishes yet</h3>
+      <p>Add the first dish to your menu.</p></div>
+  {% endif %}
+{% endblock %}

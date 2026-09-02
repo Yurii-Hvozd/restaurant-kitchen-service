@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="confirm-card">
+    <span class="eyebrow">Confirmation</span>
+    <h1>Delete dish</h1>
+    <p class="confirm-question">Are you sure you want to delete the dish: {{ dish.name }}?</p>
+    <p class="muted">This action cannot be undone. The dish will be permanently removed from the menu.</p>
+    <form action="" method="post" class="form-actions">
+      {% csrf_token %}
+      <a href="{% url 'kitchen:dish_detail' pk=dish.id %}" class="button button--light">Back to dish</a>
+      <button type="submit" class="button button--danger">Yes, delete</button>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">Menu structure</span>
+      <h1>Dish types</h1>
+      <p class="page-subtitle">Simple categories for your menu.</p>
+    </div>
+    <a href="{% url 'kitchen:dish_types_create' %}" class="button button--dark">+ Add type</a>
+  </header>
+
+  <form method="get" action="" class="search-bar">
+    {{ search_form }}
+    <button type="submit" aria-label="Search">⌕</button>
+  </form>
+
+  {% if dish_types %}
+    <div class="list-card">
+      {% for dish_type in dish_types %}
+        <div class="list-row list-row--static">
+          <span class="row-index">{{ forloop.counter|stringformat:"02d" }}</span>
+          <span class="row-main"><strong>{{ dish_type.name }}</strong></span>
+          <span class="row-actions">
+            <a href="{% url 'kitchen:dish_types_update' pk=dish_type.id %}" class="text-button">Edit</a>
+            <a href="{% url 'kitchen:dish_types_delete' pk=dish_type.id %}" class="text-button text-button--danger">Delete</a>
+          </span>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state"><span>✦</span>
+      <h3>No dish types yet</h3>
+      <p>Create a category for your menu.</p></div>
+  {% endif %}
+{% endblock %}

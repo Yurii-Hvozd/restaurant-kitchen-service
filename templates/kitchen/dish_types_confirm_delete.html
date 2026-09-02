@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="confirm-card">
+    <span class="eyebrow">Confirmation</span>
+    <h1>Delete dish type</h1>
+    <p class="confirm-question">Are you sure you want to delete the Dish Type: {{ dishtype.name }}?</p>
+    <p class="muted">Dishes assigned to this type will lose their category, but the dishes themselves will not be
+      deleted.</p>
+    <form action="" method="post" class="form-actions">
+      {% csrf_token %}
+      <a href="{% url 'kitchen:dish_types_list' %}" class="button button--light">Back to dish types</a>
+      <button type="submit" class="button button--danger">Yes, delete</button>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">Inventory</span>
+      <h1>Ingredients</h1>
+      <p class="page-subtitle">Keep the kitchen stocked and organized.</p>
+    </div>
+    <a href="{% url 'kitchen:ingredient_create' %}" class="button button--dark">+ Add ingredient</a>
+  </header>
+
+  <form method="get" action="" class="search-bar">
+    {{ search_form }}
+    <button type="submit" aria-label="Search">⌕</button>
+  </form>
+
+  {% if ingredient_list %}
+    <div class="list-card">
+      {% for ingredient in ingredient_list %}
+        <div class="list-row list-row--static">
+          <span class="row-index">{{ forloop.counter|stringformat:"02d" }}</span>
+          <span class="row-main"><strong>{{ ingredient.name }}</strong></span>
+          <span class="row-actions">
+            <a href="{% url 'kitchen:ingredient_update' pk=ingredient.id %}" class="text-button">Edit</a>
+            <a href="{% url 'kitchen:ingredient_delete' pk=ingredient.id %}" class="text-button text-button--danger">Delete</a>
+          </span>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state"><span>✦</span>
+      <h3>No ingredients yet</h3>
+      <p>Your ingredient list is empty.</p></div>
+  {% endif %}
+{% endblock %}

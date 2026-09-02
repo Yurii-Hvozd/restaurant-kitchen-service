@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <header class="page-header page-header--hero">
+    <div>
+      <span class="eyebrow">Restaurant kitchen</span>
+      <h1>Good service starts<br><em>behind the scenes.</em></h1>
+      <p class="page-subtitle">A simple workspace for keeping your kitchen organized, fast and ready.</p>
+    </div>
+  </header>
+
+  <section class="stats-grid">
+    <a class="stat-card" href="{% url 'kitchen:cook_list' %}">
+      <span class="stat-label">Cooks</span>
+      <strong>{{ num_cooks }}</strong>
+      <span class="stat-foot">Team members <span>→</span></span>
+    </a>
+    <a class="stat-card" href="{% url 'kitchen:dish_list' %}">
+      <span class="stat-label">Dishes</span>
+      <strong>{{ num_dishes }}</strong>
+      <span class="stat-foot">On the menu <span>→</span></span>
+    </a>
+    <a class="stat-card" href="{% url 'kitchen:ingredient_list' %}">
+      <span class="stat-label">Ingredients</span>
+      <strong>{{ num_ingredients }}</strong>
+      <span class="stat-foot">In inventory <span>→</span></span>
+    </a>
+    <a class="stat-card" href="{% url 'kitchen:dish_types_list' %}">
+      <span class="stat-label">Dish types</span>
+      <strong>{{ num_dish_types }}</strong>
+      <span class="stat-foot">Categories <span>→</span></span>
+    </a>
+  </section>
+
+  <section class="welcome-card">
+    <div>
+      <span class="eyebrow">Kitchen note</span>
+      <h2>Everything in its place.</h2>
+      <p>Use the workspace to manage dishes, ingredients, cooks and menu categories from one clean interface.</p>
+    </div>
+    <div class="welcome-visits">
+      You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.
+    </div>
+  </section>
+{% endblock %}

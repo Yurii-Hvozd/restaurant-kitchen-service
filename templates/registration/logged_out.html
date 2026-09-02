@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="auth-wrap">
+    <section class="auth-card auth-card--center">
+      <span class="eyebrow">Session ended</span>
+      <h1>See you soon.</h1>
+      <p class="page-subtitle">You have been successfully logged out.</p>
+      <a href="{% url 'login' %}" class="button button--dark button--full">Sign in again</a>
+    </section>
+  </div>
+{% endblock %}
